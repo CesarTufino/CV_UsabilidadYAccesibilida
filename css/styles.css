@@ -61,3 +61,26 @@ td {
     margin: 20px;
     color: #595959;
 }
+
+@media only screen and (max-width: 600px) {
+    .header {
+        flex-direction: column;
+    }
+
+    .profile-img {
+        margin: 10px 0;
+        max-width: 80%; /* Reduce el ancho máximo de la imagen de perfil */
+    }
+
+    section {
+        margin: 10px;
+    }
+
+    table {
+        font-size: 14px;
+    }
+
+    .presentation-video {
+        max-height: 200px; /* Ajusta la altura máxima del video */
+    }
+}
