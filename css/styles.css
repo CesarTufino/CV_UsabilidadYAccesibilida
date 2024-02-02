@@ -1,0 +1,63 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0px;
+    color: #595959;
+    background-color: #ffffff;
+}
+
+.header {
+    text-align: center;
+    color: #ffffff;
+    background-color: #143F72;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+section{
+    margin: 20px
+}
+
+section * {
+    margin: 10px
+}
+
+.main-title,
+h2,
+h3 {
+    font-weight: bold;
+}
+
+.profile-img {
+    max-width: 200px;
+    height: auto;
+    margin: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.presentation-video {
+    max-width: 100%;
+    height: auto;
+    max-height: 300px;
+    margin: 0 auto; /* Agrega esta línea para centrar el video */
+    display: flex;
+    align-items: center;
+}
+
+.footer {
+    text-align: center;
+    margin: 20px;
+    color: #595959;
+}

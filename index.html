@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currículo Personal</title>
+    <link rel="stylesheet" href="css/styles.css">
+
+</head>
+
+<body>
+    <header class="header">
+        <img tabindex="0" class="profile-img" src="resources/Foto.jpeg" alt="Foto de la persona, cabello negro y lentes">
+        <h1 tabindex="0" class="main-title">César Sebastián Tufiño Oñate</h1>
+    </header>
+
+    <section class="personal-info">
+        <h2 tabindex="0">Datos Personales</h2>
+        <p tabindex="0"><strong>Teléfono:</strong> (+593) 99 895 5844</p>
+        <p tabindex="0"><strong>Dirección:</strong> Llano Chico, Quito, Ecuador</p>
+        <p tabindex="0"><strong>Correo Electrónico:</strong> sebas12-t@hotmail.com</p>
+    </section>
+
+    <section class="education">
+        <h2 tabindex="0">Estudios</h2>
+        <table id="curriculumTable" tabindex="0">
+            <thead>
+                <tr>
+                    <th tabindex="0">Grado</th>
+                    <th tabindex="0">Institución</th>
+                    <th tabindex="0">Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr tabindex="0">
+                    <td tabindex="0">Ingeniería De Software</td>
+                    <td tabindex="0">Escuela Politécnica Nacional</td>
+                    <td tabindex="0">2019 - Actualidad</td>
+                </tr>
+                <tr tabindex="0">
+                    <td tabindex="0">Bachillerato General Unificado</td>
+                    <td tabindex="0">Unidad Educativa Municipal Sebastián de Benalcázar</td>
+                    <td tabindex="0">2013 - 2019</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="experience">
+        <h2 tabindex="0">Experiencia Profesional</h2>
+        <p tabindex="0"><strong>Voluntariado</strong></p>
+        <p tabindex="0"><strong>Puesto:</strong> Ayudante general</p>
+        <p tabindex="0"><strong>Empresa:</strong> Centro de Rehabilitación Ángeles en Cuatro Patas</p>
+        <p tabindex="0"><strong>Fecha de Inicio - Fecha de Fin:</strong> 2017 - 2018</p>
+        <p tabindex="0"><strong>Descripción:</strong> Durante el tiempo de voluntariado se realizaron las tareas como:
+            mantenimiento y limpieza de las instalaciones, guía y atención a los visitantes.</p>
+    </section>
+
+    <section class="presentation">
+        <h2 tabindex="0">Video de Presentación</h2>
+        <video controls tabindex="0" class="presentation-video">
+            <source src="resources/Video.mp4" type="video/mp4">
+            Tu navegador no soporta el elemento de video.
+            <track kind="subtitles" label="Subtítulos" src="resources/subtitulos.vtt" srclang="es" default>
+        </video>
+        <p tabindex="0" class="video-description"><strong>Descripción del Video:</strong> Presentación personal 
+            de mis sus virtudes y porque estoy buscando trabajo</p>
+    </section>
+
+    <footer class="footer">
+        <p tabindex="0">&copy; 2024 Currículo de César Tufiño</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctrlPressed = false;
+
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Control') {
+                    ctrlPressed = true;
+                }
+            });
+
+            document.addEventListener('keyup', function (event) {
+                if (event.key === 'Control') {
+                    ctrlPressed = false;
+                }
+            });
+
+            document.addEventListener('keydown', function (event) {
+                if (ctrlPressed) {
+                    if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
+                        event.preventDefault();
+
+                        var focusedRow = document.activeElement.closest('tr');
+                        var index = Array.from(focusedRow.parentNode.children).indexOf(focusedRow);
+                        var newIndex = (event.key === 'ArrowUp') ? index - 1 : index + 1;
+
+                        if (newIndex >= 0 && newIndex < focusedRow.parentNode.children.length) {
+                            focusedRow.classList.remove('selected');
+
+                            var parentNode = focusedRow.parentNode;
+
+                            var clonedRow = focusedRow.cloneNode(true);
+                            parentNode.removeChild(focusedRow);
+
+                            if (newIndex === 0 && event.key === 'ArrowDown') {
+                                parentNode.insertBefore(clonedRow, parentNode.children[newIndex + 1]);
+                            } else {
+                                parentNode.insertBefore(clonedRow, parentNode.children[newIndex]);
+                            }
+
+                            clonedRow.classList.add('selected');
+                            clonedRow.firstElementChild.focus();
+                        }
+                    }
+                }
+            });
+
+            document.addEventListener('keydown', function (e) {
+                const table = document.getElementById('curriculumTable');
+                const focusedElement = document.activeElement;
+                const rows = table.getElementsByTagName('tr');
+                const index = Array.from(rows).indexOf(focusedElement);
+
+                switch (e.key) {
+                    case 'ArrowUp':
+                        if (index > 0 && !ctrlPressed) {
+                            rows[index - 1].focus();
+                        } else if (ctrlPressed) {
+                            moveRow(table, index, index + 1);
+                        }
+                        break;
+                    case 'ArrowDown':
+                        if (index < rows.length - 1 && !ctrlPressed) {
+                            rows[index + 1].focus();
+                        } else if (ctrlPressed) {
+                            moveRow(table, index, index - 1);
+                        }
+                        break;
+                }
+            });
+
+            function moveRow(table, fromIndex, toIndex) {
+                var rows = Array.from(table.getElementsByTagName('tr'));
+                var focusedElement = document.activeElement;
+
+                focusedElement.parentElement.classList.remove('selected');
+
+                var parentNode = focusedElement.parentElement.parentNode;
+                var clonedRow = focusedElement.parentElement.cloneNode(true);
+
+                parentNode.removeChild(focusedElement.parentElement);
+
+                if (toIndex === 0) {
+                    parentNode.insertBefore(clonedRow, parentNode.children[toIndex]);
+                } else {
+                    parentNode.insertBefore(clonedRow, parentNode.children[toIndex]);
+                }
+
+                clonedRow.classList.add('selected');
+                clonedRow.firstElementChild.focus();
+            }
+        });
+    </script>
+</body>
+
+</html>
